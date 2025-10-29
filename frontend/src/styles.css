@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+/* Custom component classes */
+@layer components {
+  .btn-primary {
+    @apply bg-brand-green-600 hover:bg-brand-green-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-brand-dark-100 hover:bg-brand-dark-200 text-brand-dark-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-brand-dark-500 focus:ring-offset-2;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-brand-dark-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-green-500 focus:border-transparent transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-brand-dark-200 p-6;
+  }
+}

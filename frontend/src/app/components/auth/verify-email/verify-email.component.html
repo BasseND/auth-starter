@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center p-4">
+  <div class="max-w-md w-full">
+    <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+      
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="animate-fade-in">
+        <div class="w-16 h-16 mx-auto mb-6 relative">
+          <div class="animate-spin rounded-full h-16 w-16 border-4 border-emerald-200 border-t-emerald-600"></div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Vérification en cours...</h2>
+        <p class="text-gray-600">Veuillez patienter pendant que nous vérifions votre email.</p>
+      </div>
+
+      <!-- Success State -->
+      <div *ngIf="isSuccess && !isLoading" class="animate-fade-in">
+        <div class="w-16 h-16 mx-auto mb-6 bg-emerald-100 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Email vérifié !</h2>
+        <p class="text-gray-600 mb-6">{{ message }}</p>
+        <p class="text-sm text-gray-500 mb-6">Vous allez être redirigé vers la page de connexion dans quelques secondes...</p>
+        
+        <button 
+          (click)="goToLogin()"
+          class="w-full bg-emerald-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-emerald-700 transition-colors duration-200">
+          Se connecter maintenant
+        </button>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="isError && !isLoading" class="animate-fade-in">
+        <div class="w-16 h-16 mx-auto mb-6 bg-red-100 rounded-full flex items-center justify-center">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Erreur de vérification</h2>
+        <p class="text-gray-600 mb-6">{{ message }}</p>
+        
+        <div class="space-y-3">
+          <button 
+            (click)="goToResendVerification()"
+            class="w-full bg-emerald-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-emerald-700 transition-colors duration-200">
+            Renvoyer l'email de vérification
+          </button>
+          
+          <button 
+            (click)="goToLogin()"
+            class="w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200">
+            Retour à la connexion
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-6">
+      <p class="text-sm text-gray-500">
+        Besoin d'aide ? 
+        <a href="#" class="text-emerald-600 hover:text-emerald-700 font-medium">Contactez le support</a>
+      </p>
+    </div>
+  </div>
+</div>
