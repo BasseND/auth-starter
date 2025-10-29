@@ -27,8 +27,8 @@ export class AppComponent implements OnInit, OnDestroy {
       if (this.wasAuthenticated && !isAuthenticated) {
         // Check if we're not already on an auth page
         const currentUrl = this.router.url;
-        if (!currentUrl.startsWith('/auth/')) {
-          this.router.navigate(['/auth/login']);
+        if (!currentUrl.startsWith('/login') && !currentUrl.startsWith('/register')) {
+          this.router.navigate(['/login']);
         }
       }
       this.wasAuthenticated = isAuthenticated;

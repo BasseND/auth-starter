@@ -84,11 +84,11 @@ export class AuthService {
    * Logout user
    */
   logout(): Observable<any> {
-    const refreshToken = this.getRefreshToken();
+    const accessToken = this.getAccessToken();
     
-    // If we have a refresh token, call logout endpoint first
-    if (refreshToken) {
-      return this.http.post(`${this.API_URL}/auth/logout`, { refreshToken })
+    // If we have an access token, call logout endpoint first
+    if (accessToken) {
+      return this.http.post(`${this.API_URL}/auth/logout`, {})
         .pipe(
           tap(() => {
             // Clear local session after successful logout
@@ -105,7 +105,7 @@ export class AuthService {
         );
     }
     
-    // If no refresh token, just clear local session
+    // If no access token, just clear local session
     this.clearSession();
     return new Observable(observer => {
       observer.next({ success: true });
