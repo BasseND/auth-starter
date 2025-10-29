@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './components/auth/forgot-password/forgo
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UiDemoComponent } from './components/ui-demo/ui-demo.component';
 
 export const routes: Routes = [
   // Redirect root to dashboard
@@ -57,6 +58,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'ui-demo',
+        component: UiDemoComponent
       }
     ]
   },

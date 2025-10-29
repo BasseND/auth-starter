@@ -1,71 +1,55 @@
 <div class="min-h-screen flex items-center justify-center bg-brand-dark-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8">
-    <div>
-      <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100">
-        <svg class="h-8 w-8 text-brand-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-        </svg>
-      </div>
-      <h2 class="mt-6 text-center text-3xl font-bold text-brand-dark-900">
-        Connectez-vous à votre compte
-      </h2>
-      <p class="mt-2 text-center text-sm text-brand-dark-600">
-        Ou
-        <a routerLink="/register" class="font-medium text-brand-green-600 hover:text-brand-green-500 transition-colors">
-          créer un nouveau compte
-        </a>
-      </p>
-    </div>
-
-    <form class="mt-8 space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <!-- Error Message -->
-      <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-        {{ errorMessage }}
+  <div class="max-w-md w-full">
+    <app-card size="lg" variant="elevated" title="Connexion" subtitle="Accédez à votre compte">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100 mb-6">
+          <svg class="h-8 w-8 text-brand-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-brand-dark-900">
+          Connectez-vous à votre compte
+        </h2>
+        <p class="mt-2 text-sm text-brand-dark-600">
+          Ou
+          <a routerLink="/register" class="font-medium text-brand-green-600 hover:text-brand-green-500 transition-colors">
+            créer un nouveau compte
+          </a>
+        </p>
       </div>
 
-      <div class="space-y-4">
-        <!-- Email Field -->
-        <div>
-          <label for="email" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Adresse email
-          </label>
-          <input
-            id="email"
-            name="email"
+      <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Error Message -->
+        <app-alert 
+          *ngIf="errorMessage" 
+          type="error" 
+          [message]="errorMessage"
+          [dismissible]="true"
+          (dismiss)="errorMessage = ''"
+        ></app-alert>
+
+        <div class="space-y-4">
+          <!-- Email Field -->
+          <app-input
+            label="Adresse email"
             type="email"
-            autocomplete="email"
-            formControlName="email"
-            class="input-field"
-            [class.border-red-500]="email?.invalid && email?.touched"
             placeholder="Entrez votre email"
-          />
-          <div *ngIf="email?.invalid && email?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="email?.errors?.['required']">L'email est requis</span>
-            <span *ngIf="email?.errors?.['email']">Veuillez entrer un email valide</span>
-          </div>
-        </div>
+            [errorMessage]="getEmailErrorMessage()"
+            formControlName="email"
+            [required]="true"
+          ></app-input>
 
-        <!-- Password Field -->
-        <div>
-          <label for="password" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Mot de passe
-          </label>
-          <input
-            id="password"
-            name="password"
+          <!-- Password Field -->
+          <app-input
+            label="Mot de passe"
             type="password"
-            autocomplete="current-password"
-            formControlName="password"
-            class="input-field"
-            [class.border-red-500]="password?.invalid && password?.touched"
             placeholder="Entrez votre mot de passe"
-          />
-          <div *ngIf="password?.invalid && password?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="password?.errors?.['required']">Le mot de passe est requis</span>
-            <span *ngIf="password?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</span>
-          </div>
+            [errorMessage]="getPasswordErrorMessage()"
+            formControlName="password"
+            [required]="true"
+          ></app-input>
         </div>
-      </div>
 
       <!-- Forgot Password Link -->
       <div class="flex justify-end">
@@ -74,20 +58,18 @@
         </a>
       </div>
 
-      <!-- Submit Button -->
-      <div>
-        <button
+        <!-- Submit Button -->
+        <app-button
           type="submit"
-          [disabled]="isLoading"
-          class="btn-primary w-full flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          variant="primary"
+          size="lg"
+          [loading]="isLoading"
+          [disabled]="loginForm.invalid"
+          [fullWidth]="true"
         >
-          <svg *ngIf="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
           {{ isLoading ? 'Connexion...' : 'Se connecter' }}
-        </button>
-      </div>
-    </form>
+        </app-button>
+      </form>
+    </app-card>
   </div>
 </div>

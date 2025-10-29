@@ -58,6 +58,26 @@ export class AuthService {
       // On continue même si l'email n'a pas pu être envoyé
     }
 
+    // Envoyer une notification à l'administrateur
+    try {
+      const registrationDate = new Date().toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      await this.emailService.sendAdminNotification(
+        user.email,
+        registrationDate,
+        user.isEmailVerified
+      );
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de la notification admin:', error);
+      // On continue même si la notification admin n'a pas pu être envoyée
+    }
+
     return {
       user: {
         id: user.id,

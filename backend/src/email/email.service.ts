@@ -153,4 +153,46 @@ export class EmailService {
       throw error;
     }
   }
+
+  /**
+   * Envoie une notification à l'administrateur lors d'une nouvelle inscription
+   */
+  async sendAdminNotification(userEmail: string, registrationDate: string, isVerified: boolean = false) {
+    const adminEmail = this.configService.get<string>('ADMIN_EMAIL');
+    
+    if (!adminEmail) {
+      console.warn('ADMIN_EMAIL non configuré, notification admin ignorée');
+      return;
+    }
+    
+    try {
+      // Charger le template HTML
+      const template = this.loadTemplate('admin-new-user');
+      
+      // Préparer les variables pour le template
+      const templateVariables = {
+        userEmail: userEmail,
+        registrationDate: registrationDate,
+        verificationStatus: isVerified ? 'Email vérifié' : 'En attente de vérification',
+      };
+      
+      // Traiter le template avec les variables
+      const htmlContent = this.processTemplate(template, templateVariables);
+      
+      const mailOptions = {
+        from: this.configService.get<string>('FROM_EMAIL'),
+        to: adminEmail,
+        subject: `🎉 Nouvelle inscription - ${userEmail}`,
+        html: htmlContent,
+      };
+
+      const result = await this.transporter.sendMail(mailOptions);
+      console.log('Notification admin envoyée:', result.messageId);
+      return result;
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de la notification admin:', error);
+      // Ne pas faire échouer l'inscription si la notification admin échoue
+      console.warn('La notification admin a échoué, mais l\'inscription continue');
+    }
+  }
 }
