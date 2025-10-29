@@ -10,12 +10,12 @@ export class EmailService {
 
   constructor(private configService: ConfigService) {
     this.transporter = nodemailer.createTransport({
-      host: this.configService.get<string>('EMAIL_SERVER_HOST'),
-      port: this.configService.get<number>('EMAIL_SERVER_PORT'),
+      host: this.configService.get<string>('SMTP_HOST'),
+      port: this.configService.get<number>('SMTP_PORT', 587),
       secure: false, // true pour 465, false pour les autres ports
       auth: {
-        user: this.configService.get<string>('EMAIL_SERVER_USER'),
-        pass: this.configService.get<string>('EMAIL_SERVER_PASSWORD'),
+        user: this.configService.get<string>('SMTP_USER'),
+        pass: this.configService.get<string>('SMTP_PASS'),
       },
     });
   }
@@ -72,7 +72,7 @@ export class EmailService {
       const htmlContent = this.processTemplate(template, templateVariables);
       
       const mailOptions = {
-        from: this.configService.get<string>('EMAIL_FROM'),
+        from: this.configService.get<string>('FROM_EMAIL'),
         to: email,
         subject: 'Vérifiez votre adresse email - Auth Starter',
         html: htmlContent,
@@ -104,7 +104,7 @@ export class EmailService {
       const htmlContent = this.processTemplate(template, templateVariables);
       
       const mailOptions = {
-        from: this.configService.get<string>('EMAIL_FROM'),
+        from: this.configService.get<string>('FROM_EMAIL'),
         to: email,
         subject: 'Nouveau lien de vérification - Auth Starter',
         html: htmlContent,
@@ -139,7 +139,7 @@ export class EmailService {
       const htmlContent = this.processTemplate(template, templateVariables);
       
       const mailOptions = {
-        from: this.configService.get<string>('EMAIL_FROM'),
+        from: this.configService.get<string>('FROM_EMAIL'),
         to: email,
         subject: 'Réinitialisation de votre mot de passe - Auth Starter',
         html: htmlContent,

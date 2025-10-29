@@ -7,12 +7,12 @@
         </svg>
       </div>
       <h2 class="mt-6 text-center text-3xl font-bold text-brand-dark-900">
-        Create your account
+        Créez votre compte
       </h2>
       <p class="mt-2 text-center text-sm text-brand-dark-600">
-        Or
+        Ou
         <a routerLink="/login" class="font-medium text-brand-green-600 hover:text-brand-green-500 transition-colors">
-          sign in to your existing account
+          connectez-vous à votre compte existant
         </a>
       </p>
     </div>
@@ -28,7 +28,7 @@
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label for="firstName" class="block text-sm font-medium text-brand-dark-700 mb-1">
-              First name
+              Prénom
             </label>
             <input
               id="firstName"
@@ -38,17 +38,17 @@
               formControlName="firstName"
               class="input-field"
               [class.border-red-500]="firstName?.invalid && firstName?.touched"
-              placeholder="First name"
+              placeholder="Prénom"
             />
             <div *ngIf="firstName?.invalid && firstName?.touched" class="mt-1 text-sm text-red-600">
-              <span *ngIf="firstName?.errors?.['required']">First name is required</span>
-              <span *ngIf="firstName?.errors?.['minlength']">Must be at least 2 characters</span>
+              <span *ngIf="firstName?.errors?.['required']">Le prénom est requis</span>
+              <span *ngIf="firstName?.errors?.['minlength']">Doit contenir au moins 2 caractères</span>
             </div>
           </div>
 
           <div>
             <label for="lastName" class="block text-sm font-medium text-brand-dark-700 mb-1">
-              Last name
+              Nom de famille
             </label>
             <input
               id="lastName"
@@ -58,11 +58,11 @@
               formControlName="lastName"
               class="input-field"
               [class.border-red-500]="lastName?.invalid && lastName?.touched"
-              placeholder="Last name"
+              placeholder="Nom de famille"
             />
             <div *ngIf="lastName?.invalid && lastName?.touched" class="mt-1 text-sm text-red-600">
-              <span *ngIf="lastName?.errors?.['required']">Last name is required</span>
-              <span *ngIf="lastName?.errors?.['minlength']">Must be at least 2 characters</span>
+              <span *ngIf="lastName?.errors?.['required']">Le nom de famille est requis</span>
+              <span *ngIf="lastName?.errors?.['minlength']">Doit contenir au moins 2 caractères</span>
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
         <!-- Email Field -->
         <div>
           <label for="email" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Email address
+            Adresse email
           </label>
           <input
             id="email"
@@ -80,18 +80,18 @@
             formControlName="email"
             class="input-field"
             [class.border-red-500]="email?.invalid && email?.touched"
-            placeholder="Enter your email"
+            placeholder="Entrez votre email"
           />
           <div *ngIf="email?.invalid && email?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="email?.errors?.['required']">Email is required</span>
-            <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+            <span *ngIf="email?.errors?.['required']">L'email est requis</span>
+            <span *ngIf="email?.errors?.['email']">Veuillez entrer un email valide</span>
           </div>
         </div>
 
         <!-- Password Field -->
         <div>
           <label for="password" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Password
+            Mot de passe
           </label>
           <input
             id="password"
@@ -101,18 +101,18 @@
             formControlName="password"
             class="input-field"
             [class.border-red-500]="password?.invalid && password?.touched"
-            placeholder="Create a password"
+            placeholder="Créez un mot de passe"
           />
           <div *ngIf="password?.invalid && password?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="password?.errors?.['required']">Password is required</span>
-            <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+            <span *ngIf="password?.errors?.['required']">Le mot de passe est requis</span>
+            <span *ngIf="password?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</span>
           </div>
         </div>
 
         <!-- Confirm Password Field -->
         <div>
           <label for="confirmPassword" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Confirm password
+            Confirmer le mot de passe
           </label>
           <input
             id="confirmPassword"
@@ -122,11 +122,11 @@
             formControlName="confirmPassword"
             class="input-field"
             [class.border-red-500]="confirmPassword?.invalid && confirmPassword?.touched"
-            placeholder="Confirm your password"
+            placeholder="Confirmez votre mot de passe"
           />
           <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="confirmPassword?.errors?.['required']">Please confirm your password</span>
-            <span *ngIf="confirmPassword?.errors?.['passwordMismatch']">Passwords do not match</span>
+            <span *ngIf="confirmPassword?.errors?.['required']">Veuillez confirmer votre mot de passe</span>
+            <span *ngIf="confirmPassword?.errors?.['passwordMismatch']">Les mots de passe ne correspondent pas</span>
           </div>
         </div>
       </div>
@@ -142,7 +142,7 @@
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          {{ isLoading ? 'Creating account...' : 'Create account' }}
+          {{ isLoading ? 'Création du compte...' : 'Créer un compte' }}
         </button>
       </div>
     </form>

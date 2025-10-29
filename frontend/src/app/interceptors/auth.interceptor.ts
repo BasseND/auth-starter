@@ -24,6 +24,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authRequest).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
+          // For logout endpoint, don't try to refresh token, just pass the error through
+          if (authRequest.url.includes('/auth/logout')) {
+            return throwError(() => error);
+          }
           return this.handle401Error(authRequest, next);
         }
         return throwError(() => error);
@@ -34,7 +38,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private addTokenHeader(request: HttpRequest<any>): HttpRequest<any> {
     const token = this.authService.getAccessToken();
     
-    if (token && !this.isAuthEndpoint(request.url)) {
+    // Add token to all requests except login, register, refresh, and other public endpoints
+    // But DO add token to logout endpoint since it's protected
+    if (token && (!this.isAuthEndpoint(request.url) || request.url.includes('/auth/logout'))) {
       return request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`)
       });

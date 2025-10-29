@@ -16,7 +16,7 @@ import {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:3000/api';
+  private readonly API_URL = 'http://localhost:3001/api';
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_KEY = 'user';
@@ -114,13 +114,35 @@ export class AuthService {
   }
 
   /**
-   * Resend email verification
+   * Resend verification email
    */
   resendVerificationEmail(email: string): Observable<any> {
     return this.http.post(`${this.API_URL}/auth/resend-verification`, { email })
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  /**
+   * Request password reset
+   */
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/auth/request-reset`, { email })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Reset password with token
+   */
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/auth/reset-password`, { 
+      token, 
+      newPassword 
+    }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   /**

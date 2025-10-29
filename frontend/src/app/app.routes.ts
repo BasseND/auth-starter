@@ -5,6 +5,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { EmailVerificationComponent } from './components/auth/email-verification/email-verification.component';
 import { VerifyEmailComponent } from './components/auth/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
@@ -25,6 +27,16 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [GuestGuard]
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [GuestGuard]
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
     canActivate: [GuestGuard]
   },
   {

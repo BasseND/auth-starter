@@ -214,9 +214,18 @@ export class AuthService {
       },
     });
 
-    // TODO: Envoyer l'email avec le token de réinitialisation
-    // Pour l'instant, on retourne le token en développement
-    console.log(`Token de réinitialisation pour ${email}: ${resetToken}`);
+    // Envoyer l'email avec le token de réinitialisation
+    try {
+      await this.emailService.sendPasswordReset(
+        user.email,
+        resetToken,
+        user.firstName,
+      );
+      console.log(`Email de réinitialisation envoyé à ${email}`);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de l\'email de réinitialisation:', error);
+      // On ne révèle pas l'erreur à l'utilisateur pour des raisons de sécurité
+    }
 
     return { 
       message: 'Si cet email existe, un lien de réinitialisation a été envoyé.',
