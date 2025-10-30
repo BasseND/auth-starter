@@ -1,150 +1,164 @@
-<div class="min-h-screen flex items-center justify-center bg-brand-dark-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-brand-light-50 dark:bg-brand-dark-900 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8">
-    <div>
-      <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100">
-        <svg class="h-8 w-8 text-brand-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-        </svg>
-      </div>
-      <h2 class="mt-6 text-center text-3xl font-bold text-brand-dark-900">
-        Créez votre compte
-      </h2>
-      <p class="mt-2 text-center text-sm text-brand-dark-600">
-        Ou
-        <a routerLink="/login" class="font-medium text-brand-green-600 hover:text-brand-green-500 transition-colors">
-          connectez-vous à votre compte existant
-        </a>
-      </p>
-    </div>
 
-    <form class="mt-8 space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- Error Message -->
-      <div *ngIf="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-        {{ errorMessage }}
-      </div>
-
-      <div class="space-y-4">
-        <!-- Name Fields -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="firstName" class="block text-sm font-medium text-brand-dark-700 mb-1">
-              Prénom
-            </label>
-            <input
-              id="firstName"
-              name="firstName"
-              type="text"
-              autocomplete="given-name"
-              formControlName="firstName"
-              class="input-field"
-              [class.border-red-500]="firstName?.invalid && firstName?.touched"
-              placeholder="Prénom"
-            />
-            <div *ngIf="firstName?.invalid && firstName?.touched" class="mt-1 text-sm text-red-600">
-              <span *ngIf="firstName?.errors?.['required']">Le prénom est requis</span>
-              <span *ngIf="firstName?.errors?.['minlength']">Doit contenir au moins 2 caractères</span>
-            </div>
-          </div>
-
-          <div>
-            <label for="lastName" class="block text-sm font-medium text-brand-dark-700 mb-1">
-              Nom de famille
-            </label>
-            <input
-              id="lastName"
-              name="lastName"
-              type="text"
-              autocomplete="family-name"
-              formControlName="lastName"
-              class="input-field"
-              [class.border-red-500]="lastName?.invalid && lastName?.touched"
-              placeholder="Nom de famille"
-            />
-            <div *ngIf="lastName?.invalid && lastName?.touched" class="mt-1 text-sm text-red-600">
-              <span *ngIf="lastName?.errors?.['required']">Le nom de famille est requis</span>
-              <span *ngIf="lastName?.errors?.['minlength']">Doit contenir au moins 2 caractères</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Email Field -->
-        <div>
-          <label for="email" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Adresse email
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            formControlName="email"
-            class="input-field"
-            [class.border-red-500]="email?.invalid && email?.touched"
-            placeholder="Entrez votre email"
-          />
-          <div *ngIf="email?.invalid && email?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="email?.errors?.['required']">L'email est requis</span>
-            <span *ngIf="email?.errors?.['email']">Veuillez entrer un email valide</span>
-          </div>
-        </div>
-
-        <!-- Password Field -->
-        <div>
-          <label for="password" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Mot de passe
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autocomplete="new-password"
-            formControlName="password"
-            class="input-field"
-            [class.border-red-500]="password?.invalid && password?.touched"
-            placeholder="Créez un mot de passe"
-          />
-          <div *ngIf="password?.invalid && password?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="password?.errors?.['required']">Le mot de passe est requis</span>
-            <span *ngIf="password?.errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</span>
-          </div>
-        </div>
-
-        <!-- Confirm Password Field -->
-        <div>
-          <label for="confirmPassword" class="block text-sm font-medium text-brand-dark-700 mb-1">
-            Confirmer le mot de passe
-          </label>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            autocomplete="new-password"
-            formControlName="confirmPassword"
-            class="input-field"
-            [class.border-red-500]="confirmPassword?.invalid && confirmPassword?.touched"
-            placeholder="Confirmez votre mot de passe"
-          />
-          <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="confirmPassword?.errors?.['required']">Veuillez confirmer votre mot de passe</span>
-            <span *ngIf="confirmPassword?.errors?.['passwordMismatch']">Les mots de passe ne correspondent pas</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Submit Button -->
+     <app-card [showHeader]="false">
       <div>
-        <button
-          type="submit"
-          [disabled]="isLoading"
-          class="btn-primary w-full flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <svg *ngIf="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100 dark:bg-brand-green-900/20">
+          <svg class="h-8 w-8 text-brand-green-600 dark:text-brand-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
           </svg>
-          {{ isLoading ? 'Création du compte...' : 'Créer un compte' }}
-        </button>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-bold text-brand-dark-900 dark:text-brand-dark-100">
+          Créez votre compte
+        </h2>
+        <p class="mt-2 text-center text-sm text-brand-dark-600 dark:text-brand-dark-300">
+          Ou
+          <a routerLink="/login" class="font-medium text-brand-green-600 hover:text-brand-green-500 dark:text-brand-green-400 dark:hover:text-brand-green-300 transition-colors">
+            connectez-vous à votre compte existant
+          </a>
+        </p>
       </div>
-    </form>
+
+      <form class="mt-8 space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Error Message -->
+        <app-alert *ngIf="errorMessage" type="error" [message]="errorMessage"></app-alert>
+
+        <div class="space-y-4">
+          <!-- Name Fields -->
+          <div class="grid grid-cols-2 gap-4">
+            <app-input
+              id="firstName"
+              label="Prénom"
+              type="text"
+              placeholder="Prénom"
+              formControlName="firstName"
+              autocomplete="given-name"
+              [required]="true"
+            ></app-input>
+
+            <app-input
+              id="lastName"
+              label="Nom de famille"
+              type="text"
+              placeholder="Nom de famille"
+              formControlName="lastName"
+              autocomplete="family-name"
+              [required]="true"
+            ></app-input>
+          </div>
+
+          <!-- Email Field -->
+          <app-input
+            id="email"
+            label="Adresse email"
+            type="email"
+            placeholder="Entrez votre email"
+            formControlName="email"
+            autocomplete="email"
+            [required]="true"
+          ></app-input>
+
+          <!-- Password Field -->
+          <app-input
+            id="password"
+            label="Mot de passe"
+            type="password"
+            placeholder="Créez un mot de passe"
+            formControlName="password"
+            autocomplete="new-password"
+            [required]="true"
+          ></app-input>
+
+          
+
+          <!-- Confirm Password Field -->
+          <app-input
+            id="confirmPassword"
+            label="Confirmer le mot de passe"
+            type="password"
+            placeholder="Confirmez votre mot de passe"
+            formControlName="confirmPassword"
+            autocomplete="new-password"
+            [required]="true"
+          ></app-input>
+
+          <!-- Password Mismatch Error -->
+          <div *ngIf="passwordMismatchError" class="text-red-600 dark:text-red-400 text-sm mt-1 flex items-center">
+            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            Les mots de passe ne correspondent pas
+          </div>
+
+          <!-- Password Rules Info -->
+          <div class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-4 text-sm shadow-sm backdrop-blur-sm">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              <div class="flex-1">
+                <p class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Votre mot de passe doit contenir :</p>
+                <ul class="space-y-2">
+                  <li class="flex items-center transition-all duration-200" 
+                      [ngClass]="getPasswordCriteriaClass('minLength')">
+                    <svg *ngIf="isPasswordCriteriaValid('minLength')" class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg *ngIf="!isPasswordCriteriaValid('minLength')" class="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2a1 1 0 00.293.707l1.414 1.414a1 1 0 101.414-1.414L10 8.586V7z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Au moins 12 caractères</span>
+                  </li>
+                  <li class="flex items-center transition-all duration-200" 
+                      [ngClass]="getPasswordCriteriaClass('hasCase')">
+                    <svg *ngIf="isPasswordCriteriaValid('hasCase')" class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg *ngIf="!isPasswordCriteriaValid('hasCase')" class="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2a1 1 0 00.293.707l1.414 1.414a1 1 0 101.414-1.414L10 8.586V7z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Une lettre majuscule et une minuscule</span>
+                  </li>
+                  <li class="flex items-center transition-all duration-200" 
+                      [ngClass]="getPasswordCriteriaClass('hasNumber')">
+                    <svg *ngIf="isPasswordCriteriaValid('hasNumber')" class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg *ngIf="!isPasswordCriteriaValid('hasNumber')" class="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2a1 1 0 00.293.707l1.414 1.414a1 1 0 101.414-1.414L10 8.586V7z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Au moins un chiffre</span>
+                  </li>
+                  <li class="flex items-center transition-all duration-200" 
+                      [ngClass]="getPasswordCriteriaClass('hasSpecial')">
+                    <svg *ngIf="isPasswordCriteriaValid('hasSpecial')" class="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg *ngIf="!isPasswordCriteriaValid('hasSpecial')" class="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2a1 1 0 00.293.707l1.414 1.414a1 1 0 101.414-1.414L10 8.586V7z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Un caractère spécial (!&#64;#$%^&*...)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <app-button
+          type="submit"
+          variant="primary"
+          size="lg"
+          [loading]="isLoading"
+          [disabled]="isLoading"
+          class="w-full mt-6"
+        >
+          {{ isLoading ? 'Création du compte...' : 'Créer un compte' }}
+        </app-button>
+      </form>
+    </app-card>
+
   </div>
 </div>

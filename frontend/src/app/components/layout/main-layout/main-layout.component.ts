@@ -4,11 +4,13 @@ import { RouterModule, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { User } from '../../../interfaces/auth.interface';
+import { ThemeService } from '../../../shared/services/theme.service';
+import { ThemeToggleComponent } from '../../../shared/ui/theme-toggle.component';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ThemeToggleComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.css'
 })
@@ -18,7 +20,8 @@ export class MainLayoutComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {
     this.currentUser$ = this.authService.currentUser$;
   }

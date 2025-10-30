@@ -1,0 +1,95 @@
+<!-- Modal Backdrop -->
+<div 
+  *ngIf="isOpen"
+  class="fixed inset-0 z-50 overflow-y-auto"
+  [attr.aria-hidden]="!isOpen"
+  role="dialog"
+  [attr.aria-labelledby]="title ? 'modal-title' : null"
+  [attr.aria-describedby]="subtitle ? 'modal-subtitle' : null"
+>
+  <!-- Backdrop -->
+  <div 
+    class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
+    [class.opacity-100]="isOpen"
+    [class.opacity-0]="!isOpen"
+    (click)="onBackdropClick()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Modal Container -->
+  <div 
+    class="flex min-h-full items-center justify-center p-4 text-center sm:p-0"
+    [ngClass]="containerClasses"
+  >
+    <!-- Modal Panel -->
+    <div 
+      #modalPanel
+      class="relative transform overflow-hidden rounded-lg bg-white dark:bg-brand-dark-800 text-left shadow-xl transition-all duration-300 w-full"
+      [ngClass]="modalClasses"
+      [class.scale-100]="isOpen"
+      [class.scale-95]="!isOpen"
+      [class.opacity-100]="isOpen"
+      [class.opacity-0]="!isOpen"
+      role="document"
+    >
+      <!-- Header -->
+      <div 
+        *ngIf="hasHeader"
+        class="px-6 py-4 border-b border-brand-dark-200 dark:border-brand-dark-600"
+        [ngClass]="headerClasses"
+      >
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <h3 
+              *ngIf="title"
+              id="modal-title"
+              class="text-lg font-semibold text-brand-dark-900 dark:text-brand-dark-100"
+            >
+              {{ title }}
+            </h3>
+            <p 
+              *ngIf="subtitle"
+              id="modal-subtitle"
+              class="mt-1 text-sm text-brand-dark-600 dark:text-brand-dark-300"
+            >
+              {{ subtitle }}
+            </p>
+          </div>
+          
+          <!-- Close Button -->
+          <button
+            *ngIf="showCloseButton"
+            type="button"
+            class="ml-4 inline-flex h-8 w-8 items-center justify-center rounded-md text-brand-dark-400 hover:text-brand-dark-600 hover:bg-brand-dark-100 dark:hover:text-brand-dark-200 dark:hover:bg-brand-dark-700 focus:outline-none focus:ring-2 focus:ring-brand-primary-500 focus:ring-offset-2 dark:focus:ring-offset-brand-dark-800 transition-colors"
+            (click)="close()"
+            [attr.aria-label]="closeButtonLabel"
+          >
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Header Slot -->
+        <ng-content select="[slot=header]"></ng-content>
+      </div>
+
+      <!-- Body -->
+      <div 
+        class="px-6 py-4"
+        [ngClass]="bodyClasses"
+      >
+        <ng-content></ng-content>
+      </div>
+
+      <!-- Footer -->
+      <div 
+        *ngIf="hasFooter"
+        class="px-6 py-4 border-t border-brand-dark-200 dark:border-brand-dark-600 bg-brand-dark-50 dark:bg-brand-dark-700/50"
+        [ngClass]="footerClasses"
+      >
+        <ng-content select="[slot=footer]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

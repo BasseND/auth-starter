@@ -1,19 +1,20 @@
-<div class="min-h-screen flex items-center justify-center bg-brand-dark-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full">
-    <app-card size="lg" variant="elevated" title="Connexion" subtitle="Accédez à votre compte">
+<div class="min-h-screen flex items-center justify-center bg-brand-light-50 dark:bg-brand-dark-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+    <app-card size="lg" [showHeader]="false">
       <!-- Header -->
       <div class="text-center mb-8">
-        <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100 mb-6">
-          <svg class="h-8 w-8 text-brand-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-brand-green-100 dark:bg-brand-green-900/20 mb-6">
+          <svg class="h-8 w-8 text-brand-green-600 dark:text-brand-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
           </svg>
         </div>
-        <h2 class="text-3xl font-bold text-brand-dark-900">
+        <h2 class="text-3xl font-bold text-brand-dark-900 dark:text-brand-dark-100">
           Connectez-vous à votre compte
         </h2>
-        <p class="mt-2 text-sm text-brand-dark-600">
+        <p class="mt-2 text-sm text-brand-dark-600 dark:text-brand-dark-300">
           Ou
-          <a routerLink="/register" class="font-medium text-brand-green-600 hover:text-brand-green-500 transition-colors">
+          <a routerLink="/register" class="font-medium text-brand-green-600 hover:text-brand-green-500 dark:text-brand-green-400 dark:hover:text-brand-green-300 transition-colors">
             créer un nouveau compte
           </a>
         </p>
@@ -53,7 +54,7 @@
 
       <!-- Forgot Password Link -->
       <div class="flex justify-end">
-        <a routerLink="/forgot-password" class="text-sm text-brand-green-600 hover:text-brand-green-500 transition-colors">
+        <a routerLink="/forgot-password" class="mb-6 text-sm text-brand-green-600 hover:text-brand-green-500 dark:text-brand-green-400 dark:hover:text-brand-green-300 transition-colors">
           Mot de passe oublié ?
         </a>
       </div>

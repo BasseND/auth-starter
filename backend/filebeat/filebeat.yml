@@ -1,0 +1,32 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /logs/security.log
+    - /logs/app.log
+    - /logs/error.log
+  fields:
+    service: auth-starter
+    environment: ${ENVIRONMENT:development}
+  fields_under_root: true
+  multiline.pattern: '^\{'
+  multiline.negate: true
+  multiline.match: after
+
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
+  index: "auth-starter-logs-%{+yyyy.MM.dd}"
+
+setup.template.name: "auth-starter"
+setup.template.pattern: "auth-starter-logs-*"
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 0
+
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 7
+  permissions: 0644

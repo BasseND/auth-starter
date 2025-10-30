@@ -12,7 +12,15 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string): Promise<any> {
-    const result = await this.authService.login({ email, password });
+    // Dans le contexte de Passport, nous n'avons pas accès aux informations de requête
+    // Nous passons des valeurs par défaut
+    const defaultRequestInfo = {
+      ipAddress: 'unknown',
+      userAgent: 'passport-local',
+      origin: 'local-strategy'
+    };
+    
+    const result = await this.authService.login({ email, password }, defaultRequestInfo);
     
     if (!result) {
       throw new UnauthorizedException();

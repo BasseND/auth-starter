@@ -88,22 +88,34 @@ export class AlertComponent {
       success: [
         'bg-green-50',
         'border-green-200',
-        'text-green-800'
+        'text-green-800',
+        'dark:bg-green-900/20',
+        'dark:border-green-800',
+        'dark:text-green-200'
       ],
       error: [
         'bg-red-50',
         'border-red-200',
-        'text-red-800'
+        'text-red-800',
+        'dark:bg-red-900/20',
+        'dark:border-red-800',
+        'dark:text-red-200'
       ],
       warning: [
         'bg-yellow-50',
         'border-yellow-200',
-        'text-yellow-800'
+        'text-yellow-800',
+        'dark:bg-yellow-900/20',
+        'dark:border-yellow-800',
+        'dark:text-yellow-200'
       ],
       info: [
         'bg-blue-50',
         'border-blue-200',
-        'text-blue-800'
+        'text-blue-800',
+        'dark:bg-blue-900/20',
+        'dark:border-blue-800',
+        'dark:text-blue-200'
       ]
     };
 
@@ -118,10 +130,10 @@ export class AlertComponent {
     const baseClasses = ['h-5', 'w-5'];
 
     const typeClasses = {
-      success: ['text-green-400'],
-      error: ['text-red-400'],
-      warning: ['text-yellow-400'],
-      info: ['text-blue-400']
+      success: ['text-green-400', 'dark:text-green-300'],
+      error: ['text-red-400', 'dark:text-red-300'],
+      warning: ['text-yellow-400', 'dark:text-yellow-300'],
+      info: ['text-blue-400', 'dark:text-blue-300']
     };
 
     return [
@@ -134,10 +146,10 @@ export class AlertComponent {
     const baseClasses = ['text-sm', 'font-medium'];
 
     const typeClasses = {
-      success: ['text-green-800'],
-      error: ['text-red-800'],
-      warning: ['text-yellow-800'],
-      info: ['text-blue-800']
+      success: ['text-green-800', 'dark:text-green-200'],
+      error: ['text-red-800', 'dark:text-red-200'],
+      warning: ['text-yellow-800', 'dark:text-yellow-200'],
+      info: ['text-blue-800', 'dark:text-blue-200']
     };
 
     return [
@@ -154,10 +166,10 @@ export class AlertComponent {
     }
 
     const typeClasses = {
-      success: ['text-green-700'],
-      error: ['text-red-700'],
-      warning: ['text-yellow-700'],
-      info: ['text-blue-700']
+      success: ['text-green-700', 'dark:text-green-300'],
+      error: ['text-red-700', 'dark:text-red-300'],
+      warning: ['text-yellow-700', 'dark:text-yellow-300'],
+      info: ['text-blue-700', 'dark:text-blue-300']
     };
 
     return [
@@ -181,25 +193,41 @@ export class AlertComponent {
         'text-green-500',
         'hover:bg-green-100',
         'focus:ring-green-600',
-        'focus:ring-offset-green-50'
+        'focus:ring-offset-green-50',
+        'dark:text-green-400',
+        'dark:hover:bg-green-800/30',
+        'dark:focus:ring-green-500',
+        'dark:focus:ring-offset-green-900/20'
       ],
       error: [
         'text-red-500',
         'hover:bg-red-100',
         'focus:ring-red-600',
-        'focus:ring-offset-red-50'
+        'focus:ring-offset-red-50',
+        'dark:text-red-400',
+        'dark:hover:bg-red-800/30',
+        'dark:focus:ring-red-500',
+        'dark:focus:ring-offset-red-900/20'
       ],
       warning: [
         'text-yellow-500',
         'hover:bg-yellow-100',
         'focus:ring-yellow-600',
-        'focus:ring-offset-yellow-50'
+        'focus:ring-offset-yellow-50',
+        'dark:text-yellow-400',
+        'dark:hover:bg-yellow-800/30',
+        'dark:focus:ring-yellow-500',
+        'dark:focus:ring-offset-yellow-900/20'
       ],
       info: [
         'text-blue-500',
         'hover:bg-blue-100',
         'focus:ring-blue-600',
-        'focus:ring-offset-blue-50'
+        'focus:ring-offset-blue-50',
+        'dark:text-blue-400',
+        'dark:hover:bg-blue-800/30',
+        'dark:focus:ring-blue-500',
+        'dark:focus:ring-offset-blue-900/20'
       ]
     };
 

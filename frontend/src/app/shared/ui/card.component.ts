@@ -42,9 +42,11 @@ export class CardComponent {
   @Input() noPadding = false;
   @Input() hoverable = false;
   @Input() clickable = false;
+  @Input() showHeader = true; // Nouvelle propriété pour contrôler l'affichage du header
 
   get hasHeader(): boolean {
-    return !!(this.title || this.subtitle || this.hasHeaderSlot || this.hasHeaderActions);
+    // Le header est affiché seulement si showHeader est true ET qu'il y a du contenu à afficher
+    return this.showHeader && !!(this.title || this.subtitle || this.hasHeaderSlot || this.hasHeaderActions);
   }
 
   get hasFooter(): boolean {
@@ -72,24 +74,53 @@ export class CardComponent {
       'bg-white',
       'rounded-lg',
       'transition-all',
-      'duration-200'
+      'duration-200',
+      'dark:bg-brand-dark-800'
     ];
 
     // Variant classes
     const variantClasses = {
-      default: ['border', 'border-brand-dark-200'],
-      outlined: ['border-2', 'border-brand-dark-300'],
-      elevated: ['shadow-lg', 'border', 'border-brand-dark-100'],
-      filled: ['bg-brand-dark-50', 'border', 'border-brand-dark-200']
+      default: [
+        'border', 
+        'border-brand-dark-200',
+        'dark:border-brand-dark-600'
+      ],
+      outlined: [
+        'border-2', 
+        'border-brand-dark-300',
+        'dark:border-brand-dark-500'
+      ],
+      elevated: [
+        'shadow-lg', 
+        'border', 
+        'border-brand-dark-100',
+        'dark:border-brand-dark-700',
+        'dark:shadow-2xl'
+      ],
+      filled: [
+        'bg-brand-dark-50', 
+        'border', 
+        'border-brand-dark-200',
+        'dark:bg-brand-dark-700',
+        'dark:border-brand-dark-600'
+      ]
     };
 
     // Interactive classes
     const interactiveClasses = [];
     if (this.hoverable) {
-      interactiveClasses.push('hover:shadow-md', 'hover:border-brand-dark-300');
+      interactiveClasses.push(
+        'hover:shadow-md', 
+        'hover:border-brand-dark-300',
+        'dark:hover:border-brand-dark-500'
+      );
     }
     if (this.clickable) {
-      interactiveClasses.push('cursor-pointer', 'hover:shadow-lg', 'active:scale-[0.98]');
+      interactiveClasses.push(
+        'cursor-pointer', 
+        'hover:shadow-lg', 
+        'active:scale-[0.98]'
+      );
     }
 
     return [
@@ -105,7 +136,8 @@ export class CardComponent {
       'items-start',
       'justify-between',
       'border-b',
-      'border-brand-dark-200'
+      'border-brand-dark-200',
+      'dark:border-brand-dark-600'
     ];
 
     // Size-based padding
@@ -140,7 +172,9 @@ export class CardComponent {
     const baseClasses = [
       'border-t',
       'border-brand-dark-200',
-      'bg-brand-dark-25'
+      'bg-brand-dark-25',
+      'dark:border-brand-dark-600',
+      'dark:bg-brand-dark-700'
     ];
 
     // Size-based padding
@@ -161,7 +195,8 @@ export class CardComponent {
       'text-lg',
       'font-semibold',
       'text-brand-dark-900',
-      'leading-6'
+      'leading-6',
+      'dark:text-brand-dark-100'
     ].join(' ');
   }
 
@@ -170,7 +205,8 @@ export class CardComponent {
       'mt-1',
       'text-sm',
       'text-brand-dark-600',
-      'leading-5'
+      'leading-5',
+      'dark:text-brand-dark-300'
     ].join(' ');
   }
 }

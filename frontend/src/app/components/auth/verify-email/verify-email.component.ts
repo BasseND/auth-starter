@@ -1,27 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { AlertComponent, CardComponent, ButtonComponent }  from '../../../shared/ui';
+
+
 
 @Component({
   selector: 'app-verify-email',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ButtonComponent, CardComponent, AlertComponent],
   templateUrl: './verify-email.component.html',
   styleUrl: './verify-email.component.css'
 })
 export class VerifyEmailComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private authService = inject(AuthService);
+
   isLoading = true;
   isSuccess = false;
   isError = false;
   message = '';
   token = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService
-  ) {}
 
   ngOnInit(): void {
     // Récupérer le token depuis les paramètres de la route

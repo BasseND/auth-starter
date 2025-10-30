@@ -42,11 +42,13 @@ export const routes: Routes = [
   },
   {
     path: 'auth/email-verification',
-    component: EmailVerificationComponent
+    component: EmailVerificationComponent,
+    canActivate: [GuestGuard]
   },
   {
     path: 'verify-email',
-    component: VerifyEmailComponent
+    component: VerifyEmailComponent,
+    canActivate: [GuestGuard]
   },
   
   // Protected routes - require authentication

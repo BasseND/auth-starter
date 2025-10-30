@@ -20,11 +20,13 @@ export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url'
     :host {
       border: none;
       background-color: transparent;
+      padding: 0;
+      
     }
    
   `],
   template: `
-    <div class="w-full">
+    <div class="w-full mb-4">
       <!-- Label -->
       <label *ngIf="label" [for]="inputId" [class]="labelClasses">
         {{ label }}
@@ -60,7 +62,7 @@ export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url'
           <button
             *ngIf="type === 'password'"
             type="button"
-            class="text-brand-dark-400 hover:text-brand-dark-600 focus:outline-none"
+            class="text-brand-dark-400 hover:text-brand-dark-600 focus:outline-none dark:text-brand-dark-400 dark:hover:text-brand-dark-200"
             (click)="togglePasswordVisibility()"
           >
             <svg *ngIf="!showPassword" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,7 +170,8 @@ export class InputComponent implements ControlValueAccessor {
       'text-sm',
       'font-medium',
       'text-brand-dark-700',
-      'mb-1'
+      'mb-1',
+      'dark:text-brand-dark-300'
     ].join(' ');
   }
 
@@ -196,7 +199,9 @@ export class InputComponent implements ControlValueAccessor {
       'disabled:opacity-50',
       'disabled:cursor-not-allowed',
       'disabled:bg-brand-dark-50',
-      '!border-opacity-100'
+      '!border-opacity-100',
+      'dark:bg-brand-dark-700',
+      'dark:disabled:bg-brand-dark-800'
     ];
 
     // Size classes
@@ -214,7 +219,12 @@ export class InputComponent implements ControlValueAccessor {
           'placeholder-red-300',
           'focus:ring-red-500',
           'focus:!border-red-500',
-          'border-red-300'
+          'border-red-300',
+          'dark:!border-red-400',
+          'dark:text-red-100',
+          'dark:placeholder-red-400',
+          'dark:focus:ring-red-400',
+          'dark:focus:!border-red-400'
         ]
       : [
           '!border-brand-dark-300',
@@ -222,7 +232,12 @@ export class InputComponent implements ControlValueAccessor {
           'placeholder-brand-dark-400',
           'focus:ring-brand-green-500',
           'focus:!border-brand-green-500',
-          'border-brand-dark-300'
+          'border-brand-dark-300',
+          'dark:!border-brand-dark-500',
+          'dark:text-brand-dark-100',
+          'dark:placeholder-brand-dark-400',
+          'dark:focus:ring-brand-green-400',
+          'dark:focus:!border-brand-green-400'
         ];
 
     // Padding adjustments for icons
@@ -249,8 +264,8 @@ export class InputComponent implements ControlValueAccessor {
     ];
 
     const colorClasses = this.errorMessage
-      ? ['text-red-600']
-      : ['text-brand-dark-500'];
+      ? ['text-red-600', 'dark:text-red-400']
+      : ['text-brand-dark-500', 'dark:text-brand-dark-400'];
 
     return [
       ...baseClasses,

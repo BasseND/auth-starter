@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, MinLength, MaxLength, IsOptional } from 'class-validator';
+import { IsEmail, IsString, IsOptional, MaxLength } from 'class-validator';
+import { IsStrongPassword } from '../../common/validators/password.validator';
 
 export class RegisterDto {
   @ApiProperty({
@@ -10,13 +11,12 @@ export class RegisterDto {
   email: string;
 
   @ApiProperty({
-    example: 'motdepasse123',
-    description: 'Mot de passe (minimum 8 caractères)',
-    minLength: 8,
+    example: 'MySecureP@ssw0rd2024!',
+    description: 'Mot de passe sécurisé (minimum 12 caractères, majuscules, minuscules, chiffres, caractères spéciaux)',
+    minLength: 12,
   })
   @IsString()
-  @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
-  @MaxLength(100, { message: 'Le mot de passe ne peut pas dépasser 100 caractères' })
+  @IsStrongPassword()
   password: string;
 
   @ApiProperty({

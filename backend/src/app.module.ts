@@ -12,12 +12,28 @@ import { PrismaModule } from './prisma/prisma.module';
       isGlobal: true,
     }),
     
-    // Rate limiting
+    // Rate limiting avec configuration avancée
     ThrottlerModule.forRoot([
       {
-        ttl: parseInt(process.env.THROTTLE_TTL) || 60000,
-        limit: parseInt(process.env.THROTTLE_LIMIT) || 10,
+        name: 'default',
+        ttl: 60000, // 1 minute
+        limit: 100, // Requêtes générales
       },
+      {
+        name: 'auth',
+        ttl: 900000, // 15 minutes
+        limit: 5, // Tentatives de connexion
+      },
+      {
+        name: 'password-reset',
+        ttl: 3600000, // 1 heure
+        limit: 3, // Demandes de reset
+      },
+      {
+        name: 'email-verification',
+        ttl: 300000, // 5 minutes
+        limit: 3, // Vérifications email
+      }
     ]),
     
     // Modules métier

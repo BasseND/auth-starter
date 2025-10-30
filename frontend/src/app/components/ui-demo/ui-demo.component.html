@@ -1,0 +1,587 @@
+<div class="min-h-screen bg-brand-dark-50 dark:bg-brand-dark-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- Page Header -->
+        <div class="text-center">
+          <h1 class="text-4xl font-bold text-brand-dark-900 mb-4">Kit UI - Démonstration</h1>
+          <p class="text-lg text-brand-dark-600">Tous les composants réutilisables de l'application</p>
+        </div>
+
+        <!-- Buttons Section -->
+        <app-card title="Boutons" subtitle="Différentes variantes et tailles">
+          <div class="space-y-6">
+            <!-- Button Variants -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Variantes Standards</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button variant="primary">Primary</app-button>
+                <app-button variant="secondary">Secondary</app-button>
+                <app-button variant="outline">Outline</app-button>
+                <app-button variant="ghost">Ghost</app-button>
+                <app-button variant="danger">Danger</app-button>
+              </div>
+            </div>
+
+            <!-- Brand Button Variants -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Variantes de Marque</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button variant="brand-primary">Brand Primary</app-button>
+                <app-button variant="brand-secondary">Brand Secondary</app-button>
+                <app-button variant="brand-primary-outline">Brand Primary Outline</app-button>
+                <app-button variant="brand-secondary-outline">Brand Secondary Outline</app-button>
+              </div>
+            </div>
+
+            <!-- Button Sizes -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Tailles</h4>
+              <div class="flex flex-wrap items-center gap-3">
+                <app-button size="sm">Small</app-button>
+                <app-button size="md">Medium</app-button>
+                <app-button size="lg">Large</app-button>
+              </div>
+            </div>
+
+            <!-- Button States -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">États</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button [loading]="true">Loading</app-button>
+                <app-button [disabled]="true">Disabled</app-button>
+                <app-button [fullWidth]="true">Full Width</app-button>
+              </div>
+            </div>
+          </div>
+        </app-card>
+
+        <!-- Inputs Section -->
+        <app-card title="Champs de saisie" subtitle="Différents types et états">
+          <form [formGroup]="demoForm" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <app-input
+                label="Email"
+                type="email"
+                placeholder="exemple@email.com"
+                formControlName="email"
+                helperText="Entrez votre adresse email"
+              ></app-input>
+
+              <app-input
+                label="Mot de passe"
+                type="password"
+                placeholder="••••••••"
+                formControlName="password"
+                [errorMessage]="getPasswordError()"
+              ></app-input>
+
+              <app-input
+                label="Nom complet"
+                type="text"
+                placeholder="Jean Dupont"
+                formControlName="fullName"
+                [required]="true"
+              ></app-input>
+
+              <app-input
+                label="Téléphone"
+                type="tel"
+                placeholder="+33 1 23 45 67 89"
+                formControlName="phone"
+                helperText="Format international recommandé"
+              ></app-input>
+
+              <app-input
+                label="Champ désactivé"
+                type="text"
+                placeholder="Non modifiable"
+                [disabled]="true"
+                value="Valeur par défaut"
+              ></app-input>
+
+              <app-input
+                label="Avec erreur"
+                type="text"
+                placeholder="Saisie invalide"
+                errorMessage="Ce champ contient une erreur"
+              ></app-input>
+            </div>
+          </form>
+        </app-card>
+
+        <!-- Textarea Section -->
+        <app-card title="Zones de texte" subtitle="Différentes tailles et configurations">
+          <div class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <app-textarea
+                label="Description"
+                placeholder="Entrez votre description..."
+                helperText="Maximum 500 caractères"
+                [maxLength]="500"
+                [showCharacterCount]="true"
+              ></app-textarea>
+
+              <app-textarea
+                label="Commentaire"
+                placeholder="Votre commentaire..."
+                size="sm"
+                [rows]="3"
+              ></app-textarea>
+
+              <app-textarea
+                label="Message (Auto-resize)"
+                placeholder="Tapez votre message..."
+                [autoResize]="true"
+                [rows]="2"
+                helperText="La hauteur s'ajuste automatiquement"
+              ></app-textarea>
+
+              <app-textarea
+                label="Zone non redimensionnable"
+                placeholder="Contenu fixe..."
+                resize="none"
+                [rows]="4"
+              ></app-textarea>
+
+              <app-textarea
+                label="Zone désactivée"
+                placeholder="Non modifiable"
+                [disabled]="true"
+                value="Contenu en lecture seule"
+              ></app-textarea>
+
+              <app-textarea
+                label="Avec erreur"
+                placeholder="Saisie invalide..."
+                errorMessage="Ce champ contient une erreur"
+                [rows]="3"
+              ></app-textarea>
+            </div>
+
+            <!-- Large textarea example -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Grande zone de texte</h4>
+              <app-textarea
+                label="Article ou contenu long"
+                placeholder="Rédigez votre article ici..."
+                size="lg"
+                [rows]="8"
+                [maxLength]="2000"
+                [showCharacterCount]="true"
+                helperText="Idéal pour les contenus longs"
+              ></app-textarea>
+            </div>
+          </div>
+        </app-card>
+
+        <!-- Alerts Section -->
+        <app-card title="Alertes" subtitle="Messages et notifications">
+          <div class="space-y-4">
+            <app-alert 
+              type="success" 
+              title="Succès !" 
+              message="Votre action a été effectuée avec succès."
+              [dismissible]="true"
+            ></app-alert>
+
+            <app-alert 
+              type="error" 
+              title="Erreur" 
+              message="Une erreur s'est produite lors du traitement de votre demande."
+              [dismissible]="true"
+            ></app-alert>
+
+            <app-alert 
+              type="warning" 
+              title="Attention" 
+              message="Cette action nécessite votre attention."
+              [dismissible]="true"
+            ></app-alert>
+
+            <app-alert 
+              type="info" 
+              title="Information" 
+              message="Voici une information importante à retenir."
+              [dismissible]="true"
+            ></app-alert>
+          </div>
+        </app-card>
+
+        <!-- Spinners Section -->
+        <app-card title="Indicateurs de chargement" subtitle="Spinners et états de chargement">
+          <div class="space-y-6">
+            <!-- Spinner Sizes -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Tailles</h4>
+              <div class="flex items-center gap-6">
+                <app-spinner size="xs" text="XS"></app-spinner>
+                <app-spinner size="sm" text="Small"></app-spinner>
+                <app-spinner size="md" text="Medium"></app-spinner>
+                <app-spinner size="lg" text="Large"></app-spinner>
+                <app-spinner size="xl" text="XL"></app-spinner>
+              </div>
+            </div>
+
+            <!-- Spinner Variants -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Variantes</h4>
+              <div class="flex items-center gap-6">
+                <app-spinner variant="primary" text="Primary"></app-spinner>
+                <app-spinner variant="secondary" text="Secondary"></app-spinner>
+                <div class="bg-brand-dark-800 p-4 rounded-lg">
+                  <app-spinner variant="white" text="White"></app-spinner>
+                </div>
+              </div>
+            </div>
+
+            <!-- Centered Spinner -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Centré</h4>
+              <div class="h-24 border-2 border-dashed border-brand-dark-300 rounded-lg">
+                <app-spinner [centered]="true" text="Chargement..."></app-spinner>
+              </div>
+            </div>
+          </div>
+        </app-card>
+
+        <!-- Cards Section -->
+        <app-card title="Cartes" subtitle="Différentes variantes de cartes">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <app-card variant="default" title="Carte par défaut" subtitle="Description de la carte">
+              <p class="text-brand-dark-600">Contenu de la carte avec variant par défaut.</p>
+            </app-card>
+
+            <app-card variant="outlined" title="Carte avec bordure" subtitle="Bordure plus épaisse">
+              <p class="text-brand-dark-600">Contenu de la carte avec bordure accentuée.</p>
+            </app-card>
+
+            <app-card variant="elevated" title="Carte élevée" subtitle="Avec ombre">
+              <p class="text-brand-dark-600">Contenu de la carte avec effet d'élévation.</p>
+            </app-card>
+
+            <app-card variant="filled" title="Carte remplie" subtitle="Arrière-plan coloré">
+              <p class="text-brand-dark-600">Contenu de la carte avec arrière-plan.</p>
+            </app-card>
+
+            <app-card [hoverable]="true" title="Carte interactive" subtitle="Effet au survol">
+              <p class="text-brand-dark-600">Passez la souris pour voir l'effet.</p>
+            </app-card>
+
+            <app-card [clickable]="true" title="Carte cliquable" subtitle="Effet au clic">
+              <p class="text-brand-dark-600">Cliquez pour voir l'effet.</p>
+            </app-card>
+
+            <app-card [showHeader]="false" variant="outlined">
+              <p class="text-brand-dark-600">Carte sans header - Le header est masqué grâce à la propriété [showHeader]="false".</p>
+            </app-card>
+
+            <app-card title="Carte avec header" subtitle="Header visible">
+              <p class="text-brand-dark-600">Carte avec header visible (comportement par défaut).</p>
+            </app-card>
+          </div>
+        </app-card>
+
+        <!-- Modals Section -->
+        <app-card title="Modals" subtitle="Fenêtres modales accessibles et responsives">
+          <div class="space-y-6">
+            <!-- Modal Triggers -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Différentes tailles</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button variant="primary" (click)="openModal('sm')">Modal Small</app-button>
+                <app-button variant="primary" (click)="openModal('md')">Modal Medium</app-button>
+                <app-button variant="primary" (click)="openModal('lg')">Modal Large</app-button>
+                <app-button variant="primary" (click)="openModal('xl')">Modal XL</app-button>
+              </div>
+            </div>
+
+            <!-- Modal Positions -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Positions</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button variant="secondary" (click)="openModal('md', 'center')">Modal Centré</app-button>
+                <app-button variant="secondary" (click)="openModal('md', 'top')">Modal en Haut</app-button>
+              </div>
+            </div>
+
+            <!-- Modal Features -->
+            <div>
+              <h4 class="text-sm font-medium text-brand-dark-700 mb-3">Fonctionnalités</h4>
+              <div class="flex flex-wrap gap-3">
+                <app-button variant="outline" (click)="openFormModal()">Modal avec Formulaire</app-button>
+                <app-button variant="outline" (click)="openConfirmModal()">Modal de Confirmation</app-button>
+                <app-button variant="outline" (click)="openNoCloseModal()">Modal sans Fermeture</app-button>
+              </div>
+            </div>
+          </div>
+        </app-card>
+
+    
+
+        <!-- Example Modals -->
+        <app-modal 
+        [isOpen]="isSimpleModalOpen"
+        [title]="modalTitle"
+        [subtitle]="modalSubtitle"
+        [size]="modalSize"
+        [position]="modalPosition"
+        (modalClose)="closeSimpleModal()"
+        >
+        <div class="space-y-4">
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">
+            Ceci est un exemple de modal {{ modalSize }} avec position {{ modalPosition }}.
+            </p>
+            <p class="text-sm text-brand-dark-500 dark:text-brand-dark-400">
+            Le modal est entièrement accessible avec trap focus, support du clavier (ESC pour fermer, Tab pour naviguer) 
+            et compatible avec le mode sombre.
+            </p>
+        </div>
+        
+        <div slot="footer" class="flex gap-3">
+            <app-button variant="outline" (click)="closeSimpleModal()">Annuler</app-button>
+            <app-button variant="primary" (click)="closeSimpleModal()">Confirmer</app-button>
+        </div>
+        </app-modal>
+
+        <app-modal 
+        [isOpen]="isFormModalOpen"
+        title="Formulaire dans Modal"
+        subtitle="Exemple d'intégration de formulaire"
+        size="md"
+        (modalClose)="closeFormModal()"
+        >
+        <form [formGroup]="modalForm" class="space-y-4">
+            <app-input
+            label="Nom"
+            type="text"
+            placeholder="Entrez votre nom"
+            formControlName="name"
+            [required]="true"
+            ></app-input>
+
+            <app-input
+            label="Email"
+            type="email"
+            placeholder="Entrez votre email"
+            formControlName="email"
+            [required]="true"
+            ></app-input>
+
+            <app-input
+            label="Message"
+            type="text"
+            placeholder="Votre message..."
+            formControlName="message"
+            [required]="true"
+            ></app-input>
+        </form>
+        
+        <div slot="footer" class="flex gap-3">
+            <app-button variant="outline" (click)="closeFormModal()">Annuler</app-button>
+            <app-button 
+            variant="primary" 
+            [disabled]="modalForm.invalid"
+            (click)="submitModalForm()"
+            >
+            Envoyer
+            </app-button>
+        </div>
+        </app-modal>
+
+        <app-modal 
+        [isOpen]="isConfirmModalOpen"
+        title="Confirmation"
+        subtitle="Êtes-vous sûr de vouloir continuer ?"
+        size="sm"
+        [closeOnBackdropClick]="false"
+        [closeOnEscape]="false"
+        [showCloseButton]="false"
+        (modalClose)="closeConfirmModal()"
+        >
+        <div class="space-y-4">
+            <app-alert 
+            type="warning" 
+            message="Cette action est irréversible. Toutes les données seront supprimées définitivement."
+            ></app-alert>
+            
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">
+            Voulez-vous vraiment procéder à cette suppression ?
+            </p>
+        </div>
+        
+        <div slot="footer" class="flex gap-3">
+            <app-button variant="outline" (click)="closeConfirmModal()">Annuler</app-button>
+            <app-button variant="danger" (click)="confirmAction()">Supprimer</app-button>
+        </div>
+        </app-modal>
+
+        <app-modal 
+        [isOpen]="isNoCloseModalOpen"
+        title="Modal sans fermeture automatique"
+        subtitle="Seuls les boutons permettent de fermer"
+        size="md"
+        [closeOnBackdropClick]="false"
+        [closeOnEscape]="false"
+        [showCloseButton]="false"
+        (modalClose)="closeNoCloseModal()"
+        >
+        <div class="space-y-4">
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">
+            Ce modal ne peut être fermé qu'en utilisant les boutons ci-dessous. 
+            Le clic sur l'arrière-plan et la touche Échap sont désactivés.
+            </p>
+            
+            <div class="bg-brand-dark-100 dark:bg-brand-dark-700 p-4 rounded-lg">
+            <h5 class="font-medium text-brand-dark-900 dark:text-brand-dark-100 mb-2">Fonctionnalités d'accessibilité :</h5>
+            <ul class="text-sm text-brand-dark-600 dark:text-brand-dark-300 space-y-1">
+                <li>• Trap focus automatique</li>
+                <li>• Navigation au clavier (Tab/Shift+Tab)</li>
+                <li>• Attributs ARIA appropriés</li>
+                <li>• Support du mode sombre</li>
+                <li>• Design responsive</li>
+            </ul>
+            </div>
+        </div>
+        
+        <div slot="footer" class="flex gap-3">
+            <app-button variant="primary" (click)="closeNoCloseModal()">Fermer</app-button>
+        </div>
+        </app-modal>
+
+        <!-- Pagination Section -->
+        <app-card>
+        <div slot="header">
+            <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-brand-dark-100">Pagination</h2>
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">Composant de pagination responsive et accessible</p>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Pagination basique -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Pagination basique</h3>
+            <app-pagination
+                [currentPage]="currentPage"
+                [totalPages]="totalPages"
+                [showFirstLast]="true"
+                [showPrevNext]="true"
+                (pageChange)="onPageChange($event)"
+            ></app-pagination>
+            </div>
+
+            <!-- Pagination avec informations -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Avec informations</h3>
+            <app-pagination
+                [currentPage]="currentPageWithInfo"
+                [totalPages]="totalPagesWithInfo"
+                [totalItems]="totalItems"
+                [itemsPerPage]="itemsPerPage"
+                [showInfo]="true"
+                [showFirstLast]="true"
+                [showPrevNext]="true"
+                size="md"
+                (pageChange)="onPageChangeWithInfo($event)"
+            ></app-pagination>
+            </div>
+
+            <!-- Pagination compacte -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Version compacte</h3>
+            <app-pagination
+                [currentPage]="currentPageCompact"
+                [totalPages]="totalPagesCompact"
+                [maxVisiblePages]="3"
+                size="sm"
+                variant="compact"
+                (pageChange)="onPageChangeCompact($event)"
+            ></app-pagination>
+            </div>
+        </div>
+        </app-card>
+
+        <!-- Breadcrumb Section -->
+        <app-card>
+        <div slot="header">
+            <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-brand-dark-100">Breadcrumb</h2>
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">Navigation hiérarchique responsive</p>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Breadcrumb basique -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Breadcrumb basique</h3>
+            <app-breadcrumb
+                [items]="breadcrumbItems"
+                (itemClick)="onBreadcrumbClick($event)"
+            ></app-breadcrumb>
+            </div>
+
+            <!-- Breadcrumb avec icône home -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Avec icône home</h3>
+            <app-breadcrumb
+                [items]="breadcrumbItemsWithHome"
+                [showHomeIcon]="true"
+                separator=">"
+                (itemClick)="onBreadcrumbClick($event)"
+            ></app-breadcrumb>
+            </div>
+
+            <!-- Breadcrumb mobile dropdown -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Version mobile (dropdown)</h3>
+            <app-breadcrumb
+                [items]="breadcrumbItemsLong"
+                [showMobileDropdown]="true"
+                size="sm"
+                (itemClick)="onBreadcrumbClick($event)"
+            ></app-breadcrumb>
+            </div>
+        </div>
+        </app-card>
+
+        <!-- Accordion Section -->
+        <app-card>
+        <div slot="header">
+            <h2 class="text-2xl font-bold text-brand-dark-900 dark:text-brand-dark-100">Accordion</h2>
+            <p class="text-brand-dark-600 dark:text-brand-dark-300">Composant d'accordéon accessible avec navigation clavier</p>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Accordion simple -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Accordion simple</h3>
+            <app-accordion
+                [items]="accordionItems"
+                (itemToggle)="onAccordionToggle($event)"
+            ></app-accordion>
+            </div>
+
+            <!-- Accordion multiple -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Expansion multiple</h3>
+            <app-accordion
+                [items]="accordionItemsMultiple"
+                [allowMultiple]="true"
+                variant="bordered"
+                (itemToggle)="onAccordionToggle($event)"
+                (itemExpanded)="onAccordionExpanded($event)"
+                (itemCollapsed)="onAccordionCollapsed($event)"
+            ></app-accordion>
+            </div>
+
+            <!-- Accordion compact -->
+            <div>
+            <h3 class="text-lg font-semibold text-brand-dark-800 dark:text-brand-dark-200 mb-3">Version compacte</h3>
+            <app-accordion
+                [items]="accordionItemsCompact"
+                size="sm"
+                variant="minimal"
+                (itemToggle)="onAccordionToggle($event)"
+            ></app-accordion>
+            </div>
+        </div>
+        </app-card>
+
+      </div>
+    </div>

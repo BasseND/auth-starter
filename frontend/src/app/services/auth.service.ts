@@ -44,9 +44,13 @@ export class AuthService {
    * Register new user
    */
   register(userData: RegisterRequest): Observable<RegisterResponse> {
+    console.log('🔧 AuthService.register called with:', { ...userData, password: '***' });
+    console.log('🌐 API URL:', `${this.API_URL}/auth/register`);
+    
     return this.http.post<RegisterResponse>(`${this.API_URL}/auth/register`, userData)
       .pipe(
         tap(response => {
+          console.log('🔧 AuthService.register response:', response);
           // Only set session if tokens are provided (email is verified)
           if (response.accessToken && response.refreshToken) {
             this.setSession({
@@ -56,7 +60,10 @@ export class AuthService {
             });
           }
         }),
-        catchError(this.handleError)
+        catchError(error => {
+          console.error('🔧 AuthService.register error:', error);
+          return this.handleError(error);
+        })
       );
   }
 

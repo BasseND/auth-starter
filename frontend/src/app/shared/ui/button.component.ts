@@ -92,14 +92,21 @@ export class ButtonComponent {
         'text-white',
         'hover:bg-brand-green-700',
         'focus:ring-brand-green-500',
-        'active:bg-brand-green-800'
+        'active:bg-brand-green-800',
+        'dark:bg-brand-green-500',
+        'dark:hover:bg-brand-green-600',
+        'dark:active:bg-brand-green-700'
       ],
       secondary: [
         'bg-brand-dark-100',
         'text-brand-dark-900',
         'hover:bg-brand-dark-200',
         'focus:ring-brand-dark-500',
-        'active:bg-brand-dark-300'
+        'active:bg-brand-dark-300',
+        'dark:bg-brand-dark-700',
+        'dark:text-brand-dark-100',
+        'dark:hover:bg-brand-dark-600',
+        'dark:active:bg-brand-dark-800'
       ],
       outline: [
         'border',
@@ -108,21 +115,31 @@ export class ButtonComponent {
         'bg-transparent',
         'hover:bg-brand-green-50',
         'focus:ring-brand-green-500',
-        'active:bg-brand-green-100'
+        'active:bg-brand-green-100',
+        'dark:border-brand-green-400',
+        'dark:text-brand-green-400',
+        'dark:hover:bg-brand-green-900/20',
+        'dark:active:bg-brand-green-900/30'
       ],
       ghost: [
         'text-brand-dark-700',
         'bg-transparent',
         'hover:bg-brand-dark-100',
         'focus:ring-brand-dark-500',
-        'active:bg-brand-dark-200'
+        'active:bg-brand-dark-200',
+        'dark:text-brand-dark-300',
+        'dark:hover:bg-brand-dark-800',
+        'dark:active:bg-brand-dark-700'
       ],
       danger: [
         'bg-red-600',
         'text-white',
         'hover:bg-red-700',
         'focus:ring-red-500',
-        'active:bg-red-800'
+        'active:bg-red-800',
+        'dark:bg-red-500',
+        'dark:hover:bg-red-600',
+        'dark:active:bg-red-700'
       ],
       'brand-primary': [
         'bg-brand-primary',
@@ -132,7 +149,9 @@ export class ButtonComponent {
         'active:bg-brand-primary/80',
         'shadow-sm',
         'border',
-        'border-brand-primary/20'
+        'border-brand-primary/20',
+        'dark:text-brand-dark-900',
+        'dark:border-brand-primary/30'
       ],
       'brand-secondary': [
         'bg-brand-secondary',
@@ -142,7 +161,9 @@ export class ButtonComponent {
         'active:bg-brand-secondary/80',
         'shadow-sm',
         'border',
-        'border-brand-secondary/20'
+        'border-brand-secondary/20',
+        'dark:text-brand-dark-900',
+        'dark:border-brand-secondary/30'
       ],
       'brand-primary-outline': [
         'border-2',
@@ -152,7 +173,9 @@ export class ButtonComponent {
         'hover:bg-brand-primary/10',
         'focus:ring-brand-primary/50',
         'active:bg-brand-primary/20',
-        'transition-colors'
+        'transition-colors',
+        'dark:hover:bg-brand-primary/20',
+        'dark:active:bg-brand-primary/30'
       ],
       'brand-secondary-outline': [
         'border-2',
@@ -162,7 +185,9 @@ export class ButtonComponent {
         'hover:bg-brand-secondary/10',
         'focus:ring-brand-secondary/50',
         'active:bg-brand-secondary/20',
-        'transition-colors'
+        'transition-colors',
+        'dark:hover:bg-brand-secondary/20',
+        'dark:active:bg-brand-secondary/30'
       ]
     };
 
