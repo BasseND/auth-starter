@@ -6,10 +6,9 @@ import {
   HttpStatus,
   UseGuards,
   Get,
-  Req,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
-import { ThrottlerGuard, Throttle } from '@nestjs/throttler';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -18,8 +17,6 @@ import { RequestPasswordResetDto } from './dto/request-password-reset.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { ResendVerificationDto } from './dto/resend-verification.dto';
-import { CheckPasswordStrengthDto } from './dto/check-password-strength.dto';
-import { checkPasswordStrength } from '../common/validators/password.validator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { GetUser } from './decorators/get-user.decorator';
 import { GetRequestInfo, RequestInfo } from '../common/decorators/request-info.decorator';
@@ -31,7 +28,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @Throttle({ auth: { limit: 3, ttl: 900000 } }) // 3 inscriptions par 15 min
   @ApiOperation({ summary: 'Inscription d\'un nouvel utilisateur' })
   @ApiResponse({ status: 201, description: 'Utilisateur créé avec succès' })
   @ApiResponse({ status: 409, description: 'Email déjà utilisé' })
@@ -40,7 +36,6 @@ export class AuthController {
   }
 
   @Post('login')
-  @Throttle({ auth: { limit: 5, ttl: 900000 } }) // 5 tentatives par 15 min
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Connexion utilisateur' })
   @ApiResponse({ status: 200, description: 'Connexion réussie' })
@@ -88,7 +83,6 @@ export class AuthController {
   }
 
   @Post('request-reset')
-  @Throttle({ 'password-reset': { limit: 3, ttl: 3600000 } }) // 3 demandes par heure
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Demander une réinitialisation de mot de passe' })
   @ApiResponse({ status: 200, description: 'Email de réinitialisation envoyé si l\'adresse existe' })
@@ -98,7 +92,6 @@ export class AuthController {
   }
 
   @Post('reset-password')
-  @Throttle({ 'password-reset': { limit: 5, ttl: 3600000 } }) // 5 tentatives par heure
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Réinitialiser le mot de passe avec un token' })
   @ApiResponse({ status: 200, description: 'Mot de passe réinitialisé avec succès' })
@@ -108,7 +101,6 @@ export class AuthController {
   }
 
   @Post('verify-email')
-  @Throttle({ 'email-verification': { limit: 3, ttl: 300000 } }) // 3 vérifications par 5 min
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Vérifier l\'adresse email avec un token' })
   @ApiResponse({ status: 200, description: 'Email vérifié avec succès' })
@@ -118,35 +110,11 @@ export class AuthController {
   }
 
   @Post('resend-verification')
-  @Throttle({ 'email-verification': { limit: 2, ttl: 300000 } }) // 2 renvois par 5 min
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Renvoyer l\'email de vérification' })
   @ApiResponse({ status: 200, description: 'Email de vérification renvoyé si l\'adresse existe' })
-  @ApiResponse({ status: 400, description: 'Données invalides' })
-  async resendVerificationEmail(@Body() resendVerificationDto: ResendVerificationDto, @GetRequestInfo() requestInfo: RequestInfo) {
+  @ApiResponse({ status: 400, description: 'Email déjà vérifié ou données invalides' })
+  async resendEmailVerification(@Body() resendVerificationDto: ResendVerificationDto, @GetRequestInfo() requestInfo: RequestInfo) {
     return this.authService.resendVerificationEmail(resendVerificationDto, requestInfo);
-  }
-
-  @Post('check-password-strength')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Vérifier la force d\'un mot de passe' })
-  @ApiResponse({ status: 200, description: 'Analyse de la force du mot de passe' })
-  @ApiResponse({ status: 400, description: 'Données invalides' })
-  async checkPasswordStrength(@Body() checkPasswordStrengthDto: CheckPasswordStrengthDto) {
-    const result = checkPasswordStrength(checkPasswordStrengthDto.password);
-    return {
-      score: result.score,
-      isStrong: result.isStrong,
-      feedback: result.feedback,
-      strength: this.getStrengthLabel(result.score)
-    };
-  }
-
-  private getStrengthLabel(score: number): string {
-    if (score >= 8) return 'Très fort';
-    if (score >= 6) return 'Fort';
-    if (score >= 4) return 'Moyen';
-    if (score >= 2) return 'Faible';
-    return 'Très faible';
   }
 }
